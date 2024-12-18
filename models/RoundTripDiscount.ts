@@ -1,9 +1,10 @@
 import { TravelSection } from './TravelSection';
 import { BasicFare } from './BasicFare';
+import { IDiscount } from './IDiscount';
 
 const DiscountDistanceThreshold = 601
 
-export class RoundTripDiscount {
+export class RoundTripDiscount implements IDiscount {
 
     private _travelSection: TravelSection
     private _discountRatio: number
@@ -18,6 +19,6 @@ export class RoundTripDiscount {
     }
 
     isApplyable(fare: BasicFare): boolean {
-        return this._travelSection.distance() >= 601 && fare.isRoundTrip()
+        return this._travelSection.distance() >= DiscountDistanceThreshold && fare.isRoundTrip()
     }
 }

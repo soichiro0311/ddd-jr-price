@@ -31,6 +31,11 @@ export class BasicFare {
         return this._value
     }
 
+    travelSection(): TravelSection {
+        return this._travelSection
+    }
+
+
     private resolveDestinationValue(): number {
         if (this._travelSection.isDestination(Station.SinOsaka)) {
             return 8910
