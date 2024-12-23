@@ -3,22 +3,23 @@ import { TravelSection } from './TravelSection';
 import { AdultChildCategory } from './AdultChildCategory';
 import { roundDown } from "./shared/PriceRounder";
 import { RoundTripDiscount } from "./RoundTripDiscount";
+import { RoundTripType } from "./RoundTripType";
 
 export class BasicFare {
     private _travelSection: TravelSection;
     private _value: number
     private _adultChildCategory: AdultChildCategory
-    private _isRoundTrip: boolean
+    private _roundTripType: RoundTripType
     private _passengerCount: number
     private _depatureDate: Date
     private _destinationDate: Date
 
-    constructor(departureStation: Station, destinationStation: Station, adultChildCategory: AdultChildCategory, isRoundTrip: boolean, passengerCount: number, depatureDate: Date, destinationDate: Date) {
+    constructor(departureStation: Station, destinationStation: Station, adultChildCategory: AdultChildCategory, roundTripType: RoundTripType, passengerCount: number, depatureDate: Date, destinationDate: Date) {
         this._travelSection = new TravelSection(departureStation, destinationStation)
         this._adultChildCategory = adultChildCategory;
         const value = this.resolveAdultChildCategoryValue(this.resolveDestinationValue())
         this._value = roundDown(value)
-        this._isRoundTrip = isRoundTrip
+        this._roundTripType = roundTripType
         this._passengerCount = passengerCount
         this._depatureDate = depatureDate
         this._destinationDate = destinationDate
@@ -36,7 +37,7 @@ export class BasicFare {
     }
 
     isRoundTrip(): boolean {
-        return this._isRoundTrip
+        return this._roundTripType === RoundTripType.RoundTrip
     }
 
     passengerCount(): number {
