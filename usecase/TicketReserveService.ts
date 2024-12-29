@@ -8,8 +8,8 @@ export class TicketReserveService {
     reserve(roundTripType: RoundTripType, departureStation: Station, destinationStation: Station, passengerCount: number, depatureDate: Date, destinationDate: Date, adultChildCategory: AdultChildCategory) {
         const reservation = new Reservation(passengerCount, depatureDate, destinationDate, departureStation, destinationStation, roundTripType, adultChildCategory);
         const repository = new ReservationRepostiory()
-        repository.save(reservation).then(reservation => {
-            console.log(reservation)
+        return repository.save(reservation).then(reservation => {
+            return reservation
         })
     }
 }

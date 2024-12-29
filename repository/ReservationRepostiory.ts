@@ -11,7 +11,7 @@ export class ReservationRepostiory implements ReservationRepositoryInterface {
 
 
     async save(reservation: Reservation) {
-        return this.prisma.reservation.create({
+        this.prisma.reservation.create({
             data: {
                 id: reservation.id(),
                 departureStation: reservation.depatureStation(),
@@ -27,6 +27,7 @@ export class ReservationRepostiory implements ReservationRepositoryInterface {
                 }
             }
         })
+        return reservation;
     }
 
 }

@@ -25,6 +25,7 @@
     "express": "^4.21.2",
     "inversify": "^6.2.1",
     "prisma": "^6.1.0",
+    "reflect-metadata": "^0.2.2",
     "ts-node": "^10.9.2",
     "uuid": "^11.0.3"
   }
