@@ -5,8 +5,10 @@ import { AdultChildCategory } from "./AdultChildCategory";
 import { RoundTripType } from './RoundTripType';
 import { RoundTripDiscount } from './RoundTripDiscount';
 import { GroupDiscount } from './GroupDiscount';
+import { v4 as uuidv4 } from 'uuid';
 
 export class Reservation {
+    private _id: string
     private _passengerCount: number
     private _depatureDate: Date
     private _destinationDate: Date
@@ -14,6 +16,7 @@ export class Reservation {
     private _fares = new Array<BasicFare>();
 
     constructor(passengerCount: number, depatureDate: Date, destinationDate: Date, departureStation: Station, destinationStation: Station, roundTripType: RoundTripType, adultChildCategory: AdultChildCategory) {
+        this._id = uuidv4()
         this._passengerCount = passengerCount;
         this._depatureDate = depatureDate;
         this._destinationDate = destinationDate;
@@ -39,5 +42,22 @@ export class Reservation {
         }, 0)
     }
 
+    passengerCount(): number {
+        return this._passengerCount
+    }
+    basicFares(): BasicFare[] {
+        return this._fares
+    }
 
+
+    id(): string {
+        return this._id
+    }
+
+    destinationStation(): string {
+        return this._travelSection.destinationStation().toString()
+    }
+    depatureStation(): string {
+        return this._travelSection.departureStation().toString()
+    }
 }

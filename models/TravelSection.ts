@@ -16,7 +16,7 @@ export class TravelSection {
         return this._destinationStation === station
     }
 
-    distance(): number{
+    distance(): number {
         return this._distance
     }
 
@@ -32,5 +32,12 @@ export class TravelSection {
         throw new DomainError("DomainError", "マスタ未設定の駅です")
     }
 
+    departureStation() {
+        return this._departureStation
+    }
+
+    destinationStation() {
+        return this._destinationStation
+    }
 
 }
