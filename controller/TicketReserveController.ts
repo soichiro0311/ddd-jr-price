@@ -1,7 +1,5 @@
 import { TicketReserveService } from '../usecase/TicketReserveService';
 import { DomainError } from '../models/error/DomainError';
-import { injectable } from 'inversify/lib/cjs';
-import { Station } from '../models/Station';
 
 export class TicketReserveController {
 
