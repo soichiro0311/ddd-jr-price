@@ -1,7 +1,7 @@
 import { BasicFare } from "../BasicFare";
 import { Station } from "../Station";
 import { AdultChildCategory } from "../AdultChildCategory";
-import { GroupDiscount } from "../GroupDiscount";
+import { GroupDiscount } from "../discount/group/GroupDiscount";
 import { RoundTripType } from "../RoundTripType";
 
 describe("団体割引", () => {

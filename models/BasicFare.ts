@@ -2,9 +2,8 @@ import { Station } from "./Station";
 import { TravelSection } from './TravelSection';
 import { AdultChildCategory } from './AdultChildCategory';
 import { roundDown } from "./shared/PriceRounder";
-import { RoundTripDiscount } from "./RoundTripDiscount";
 import { RoundTripType } from "./RoundTripType";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from '../node_modules/uuid/dist/cjs'
 
 export class BasicFare {
     private _id: string
@@ -17,7 +16,7 @@ export class BasicFare {
     private _destinationDate: Date
 
     constructor(departureStation: Station, destinationStation: Station, adultChildCategory: AdultChildCategory, roundTripType: RoundTripType, passengerCount: number, depatureDate: Date, destinationDate: Date) {
-        this._id = uuidv4();
+        this._id = uuidv4()
         this._travelSection = new TravelSection(departureStation, destinationStation)
         this._adultChildCategory = adultChildCategory;
         const value = this.resolveAdultChildCategoryValue(this.resolveDestinationValue())

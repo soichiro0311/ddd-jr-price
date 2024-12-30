@@ -1,6 +1,6 @@
 import { ReservationRepositoryInterface } from "../../models/IReservationRepository";
 import { Reservation } from "../../models/Reservation";
-import { injectable } from "../../node_modules/inversify/lib/cjs";
+import { injectable } from "inversify/lib/cjs";
 
 @injectable()
 export class ReservationRepositoryMock implements ReservationRepositoryInterface {

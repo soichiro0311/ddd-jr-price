@@ -1,9 +1,9 @@
 import { BasicFare } from "../BasicFare";
 import { Station } from "../Station";
-import { RoundTripDiscount } from '../RoundTripDiscount';
 import { TravelSection } from "../TravelSection";
 import { AdultChildCategory } from "../AdultChildCategory";
 import { RoundTripType } from "../RoundTripType";
+import { RoundTripDiscount } from "../discount/roundtrip/RoundTripDiscount";
 
 describe("往復割引", () => {
     describe("往復の距離に応じて割引が適用されること", () => {

@@ -3,9 +3,9 @@ import { TravelSection } from "./TravelSection";
 import { BasicFare } from './BasicFare';
 import { AdultChildCategory } from "./AdultChildCategory";
 import { RoundTripType } from './RoundTripType';
-import { RoundTripDiscount } from './RoundTripDiscount';
-import { GroupDiscount } from './GroupDiscount';
-import { v4 as uuidv4 } from 'uuid';
+import { RoundTripDiscount } from './discount/roundtrip/RoundTripDiscount';
+import { GroupDiscount } from './discount/group/GroupDiscount';
+import { v4 as uuidv4 } from '../node_modules/uuid/dist/cjs'
 
 export class Reservation {
     private _id: string

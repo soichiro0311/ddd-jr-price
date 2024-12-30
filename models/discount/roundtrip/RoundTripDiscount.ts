@@ -1,6 +1,6 @@
-import { TravelSection } from './TravelSection';
-import { BasicFare } from './BasicFare';
-import { IDiscount } from './IDiscount';
+import { TravelSection } from '../../TravelSection';
+import { BasicFare } from '../../BasicFare';
+import { IDiscount } from '../IDiscount';
 
 const DiscountDistanceThreshold = 601
 
