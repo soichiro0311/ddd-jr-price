@@ -1,7 +1,9 @@
 import { ReservationRepositoryInterface } from "../models/IReservationRepository";
 import { Reservation } from "../models/Reservation";
 import { PrismaClient } from "@prisma/client"
+import { injectable } from "../node_modules/inversify/lib/cjs";
 
+@injectable()
 export class ReservationRepostiory implements ReservationRepositoryInterface {
     private prisma: PrismaClient;
 

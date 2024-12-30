@@ -1,9 +1,12 @@
 import { TicketReserveService } from '../usecase/TicketReserveService';
 import { DomainError } from '../models/error/DomainError';
+import { myContainer } from '../inversifyConfig';
+import { ReservationRepositoryInterface } from '../models/IReservationRepository';
+import { TYPES } from '../types';
 
 export class TicketReserveController {
 
-    private ticketReserveService = new TicketReserveService()
+    private ticketReserveService = new TicketReserveService(myContainer.get<ReservationRepositoryInterface>(TYPES.ReservationRepostiory))
 
     reserveTciket = (request: any, response: any) => {
         try {

@@ -1,6 +1,6 @@
 
 import { TYPES } from "./types";
-import { Container } from "inversify/lib/cjs";
+import { Container } from "./node_modules/inversify/lib/cjs";
 import { ReservationRepostiory } from "./repository/ReservationRepostiory";
 import { ReservationRepositoryInterface } from "./models/IReservationRepository";
 import { ReservationRepositoryMock } from "./repository/mock/ReservationRepositoryMock";

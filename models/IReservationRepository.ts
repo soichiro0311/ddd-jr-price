@@ -1,5 +1,5 @@
 import { Reservation } from "./Reservation";
 
 export interface ReservationRepositoryInterface {
-    save(reservation: Reservation): Promise<Reservation> | Reservation
+    save(reservation: Reservation): Promise<Reservation>
 }
