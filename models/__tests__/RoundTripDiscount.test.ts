@@ -23,7 +23,7 @@ describe("往復割引", () => {
         })
     })
     describe("往復の運賃にのみ割引が適用されること", () => {
-        it("東京から姫路の片道運賃の場合、往復割引が適用されること", () => {
+        it("東京から姫路の片道運賃の場合、往復割引が適用されないこと", () => {
             const discount = new RoundTripDiscount(new TravelSection(Station.Tokyo, Station.Himeji));
             const basicFare = new BasicFare(Station.Tokyo, Station.Himeji, AdultChildCategory.Adult, RoundTripType.OneWay, 1, new Date("2024-5-11"), new Date("2024-5-13"));
             const isApplyable = discount.isApplyable(basicFare)

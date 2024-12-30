@@ -18,13 +18,14 @@ export class Reservation {
         this._passengerCount = passengerCount;
         this._travelSection = new TravelSection(departureStation, destinationStation)
 
+        const groupDiscount = new GroupDiscount(passengerCount);
+
         for (let i = 0; i < passengerCount; i++) {
             const fare = new BasicFare(departureStation, destinationStation, adultChildCategory, roundTripType, passengerCount, depatureDate, destinationDate)
             const roundTripDiscount = new RoundTripDiscount(fare.travelSection());
             if (roundTripDiscount.isApplyable(fare)) {
                 roundTripDiscount.apply(fare);
             }
-            const groupDiscount = new GroupDiscount();
             if (groupDiscount.isApplyable(fare)) {
                 groupDiscount.apply(fare);
             }

@@ -42,6 +42,10 @@ export class BasicFare {
         this._value = roundDown(this._value * (1 - discountRatio))
     }
 
+    free(): void {
+        this._value = 0
+    }
+
     isRoundTrip(): boolean {
         return this._roundTripType === RoundTripType.RoundTrip
     }
