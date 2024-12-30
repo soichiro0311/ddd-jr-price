@@ -13,8 +13,8 @@ export class TicketReserveService {
         this.repository = repository
     }
 
-    reserve(roundTripType: RoundTripType, departureStation: Station, destinationStation: Station, passengerCount: number, depatureDate: Date, destinationDate: Date, adultChildCategory: AdultChildCategory) {
-        const reservation = new Reservation(passengerCount, depatureDate, destinationDate, departureStation, destinationStation, roundTripType, adultChildCategory);
+    reserve(roundTripType: RoundTripType, departureStation: Station, destinationStation: Station, adultPassengerCount: number, childPassengerCount: number, depatureDate: Date, destinationDate: Date) {
+        const reservation = new Reservation(adultPassengerCount, childPassengerCount, depatureDate, destinationDate, departureStation, destinationStation, roundTripType);
 
         return this.repository.save(reservation).then(reservation => {
             return reservation

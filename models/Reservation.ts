@@ -13,15 +13,15 @@ export class Reservation {
     private _travelSection: TravelSection;
     private _fares = new Array<BasicFare>();
 
-    constructor(passengerCount: number, depatureDate: Date, destinationDate: Date, departureStation: Station, destinationStation: Station, roundTripType: RoundTripType, adultChildCategory: AdultChildCategory) {
+    constructor(adultPassengerCount: number, childPassengerCount: number, depatureDate: Date, destinationDate: Date, departureStation: Station, destinationStation: Station, roundTripType: RoundTripType) {
         this._id = uuidv4()
-        this._passengerCount = passengerCount;
+        this._passengerCount = adultPassengerCount + childPassengerCount;
         this._travelSection = new TravelSection(departureStation, destinationStation)
 
-        const groupDiscount = new GroupDiscount(passengerCount);
+        const groupDiscount = new GroupDiscount(this._passengerCount);
 
-        for (let i = 0; i < passengerCount; i++) {
-            const fare = new BasicFare(departureStation, destinationStation, adultChildCategory, roundTripType, passengerCount, depatureDate, destinationDate)
+        for (let i = 0; i < adultPassengerCount; i++) {
+            const fare = new BasicFare(departureStation, destinationStation, AdultChildCategory.Adult, roundTripType, this._passengerCount, depatureDate, destinationDate)
             const roundTripDiscount = new RoundTripDiscount(fare.travelSection());
             if (roundTripDiscount.isApplyable(fare)) {
                 roundTripDiscount.apply(fare);
@@ -31,6 +31,18 @@ export class Reservation {
             }
             this._fares.push(fare)
         }
+        for (let i = 0; i < childPassengerCount; i++) {
+            const fare = new BasicFare(departureStation, destinationStation, AdultChildCategory.Child, roundTripType, this._passengerCount, depatureDate, destinationDate)
+            const roundTripDiscount = new RoundTripDiscount(fare.travelSection());
+            if (roundTripDiscount.isApplyable(fare)) {
+                roundTripDiscount.apply(fare);
+            }
+            if (groupDiscount.isApplyable(fare)) {
+                groupDiscount.apply(fare);
+            }
+            this._fares.push(fare)
+        }
+
     }
 
     sumPrice() {

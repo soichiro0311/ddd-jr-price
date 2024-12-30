@@ -12,7 +12,7 @@ export class TicketReserveController {
         try {
             const depatureDate = new Date(request.body.depatureDate)
             const destinationDate = new Date(request.body.destinationDate)
-            const reserve = this.ticketReserveService.reserve(request.body.roundTripType, request.body.departureStation, request.body.destinationStation, request.body.passengerCount, depatureDate, destinationDate, request.body.adultChildCategory)
+            const reserve = this.ticketReserveService.reserve(request.body.roundTripType, request.body.departureStation, request.body.destinationStation, request.body.adultPassengerCount, request.body.childPassengerCount, depatureDate, destinationDate)
             response.status(200).end()
         } catch (e) {
             if (e instanceof DomainError) {
