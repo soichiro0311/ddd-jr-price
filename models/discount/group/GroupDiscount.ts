@@ -1,4 +1,4 @@
-import { IDiscount } from "../IDiscount";
+
 import { BasicFare } from "../../BasicFare";
 import { FreeDiscountStrategy } from "./FreeDiscountStrategy";
 import { IGroupDiscountStrategy } from "./GroupDiscountStrategyInterface";
@@ -6,13 +6,15 @@ import { FreePerPassengerCountDiscountStrategy } from "./FreePerPassengerCountDi
 import { RatioDiscountStrategy } from "./RatioDiscountStrategy";
 import { DomainError } from "../../error/DomainError";
 import { RoundTripType } from "../../RoundTripType";
+import { DiscountBase } from '../IDiscount';
 
-export class GroupDiscount implements IDiscount {
+export class GroupDiscount extends DiscountBase {
     private _applyPassengersCountThreshold = 8
 
     private _strategies: Array<IGroupDiscountStrategy> = []
 
     constructor(passengerCount: number, roundTripType: RoundTripType) {
+        super()
         this._strategies = [new FreeDiscountStrategy(roundTripType), new FreePerPassengerCountDiscountStrategy(passengerCount, roundTripType), new RatioDiscountStrategy()]
     }
 

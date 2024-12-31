@@ -1,15 +1,16 @@
 import { TravelSection } from '../../TravelSection';
 import { BasicFare } from '../../BasicFare';
-import { IDiscount } from '../IDiscount';
+import { DiscountBase } from '../IDiscount';
 
 const DiscountDistanceThreshold = 601
 
-export class RoundTripDiscount implements IDiscount {
+export class RoundTripDiscount extends DiscountBase {
 
     private _travelSection: TravelSection
     private _discountRatio: number
 
     constructor(travelSection: TravelSection) {
+        super()
         this._travelSection = travelSection
         this._discountRatio = 0.1
     }
