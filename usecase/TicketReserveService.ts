@@ -1,7 +1,6 @@
 import { RoundTripType } from '../models/RoundTripType';
 import { Station } from '../models/Station';
 import { Reservation } from '../models/Reservation';
-import { AdultChildCategory } from '../models/AdultChildCategory';
 import { ReservationRepositoryInterface } from "../models/IReservationRepository";
 import { TYPES } from '../types';
 import { inject } from '../node_modules/inversify/lib/cjs';
@@ -17,6 +16,12 @@ export class TicketReserveService {
         const reservation = new Reservation(adultPassengerCount, childPassengerCount, depatureDate, destinationDate, departureStation, destinationStation, roundTripType);
 
         return this.repository.save(reservation).then(reservation => {
+            return reservation
+        })
+    }
+
+    allTickets() {
+        return this.repository.list().then(reservation => {
             return reservation
         })
     }

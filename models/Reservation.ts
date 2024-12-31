@@ -9,6 +9,7 @@ import { v4 as uuidv4 } from '../node_modules/uuid/dist/cjs'
 import { DiscountBase } from "./discount/IDiscount";
 
 export class Reservation {
+
     private _id: string
     private _passengerCount: number
     private _travelSection: TravelSection;
@@ -22,6 +23,20 @@ export class Reservation {
 
         this.calcBasicFare(discountChain, depatureDate, destinationDate, this._travelSection, roundTripType, AdultChildCategory.Adult, adultPassengerCount)
         this.calcBasicFare(discountChain, depatureDate, destinationDate, this._travelSection, roundTripType, AdultChildCategory.Child, childPassengerCount)
+    }
+
+    static fromData(dataObj: any): Reservation {
+        const basicFares: BasicFare[] = dataObj.basicFares.map((fareData: any) => BasicFare.fromData(fareData, Number(dataObj.departureStation), Number(dataObj.destinationStation), dataObj.passengerCount))
+        const adultTickets = basicFares.filter(fare => fare.adultChildCategory() === AdultChildCategory.Adult).length
+        const adultPassengerCount = basicFares[0].roundTripType() === RoundTripType.RoundTrip ? adultTickets / 2 : adultTickets
+
+        const childTickets = basicFares.filter(fare => fare.adultChildCategory() === AdultChildCategory.Child).length
+        const childPassengerCount = basicFares[0].roundTripType() === RoundTripType.RoundTrip ? childTickets / 2 : childTickets
+
+        const reservation = new Reservation(adultPassengerCount, childPassengerCount, new Date(), new Date(), Number(dataObj.departureStation), Number(dataObj.destinationStation), RoundTripType.OneWay)
+        reservation._id = dataObj.id
+        reservation._fares = basicFares
+        return reservation
     }
 
     sumPrice() {

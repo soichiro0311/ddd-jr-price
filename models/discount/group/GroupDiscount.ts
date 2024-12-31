@@ -15,7 +15,11 @@ export class GroupDiscount extends DiscountBase {
 
     constructor(passengerCount: number, roundTripType: RoundTripType) {
         super()
-        this._strategies = [new FreeDiscountStrategy(roundTripType), new FreePerPassengerCountDiscountStrategy(passengerCount, roundTripType), new RatioDiscountStrategy()]
+        this._strategies = [
+            new FreeDiscountStrategy(roundTripType), //
+            new FreePerPassengerCountDiscountStrategy(passengerCount, roundTripType), //
+            new RatioDiscountStrategy() //
+        ]
     }
 
     apply(fare: BasicFare): void {

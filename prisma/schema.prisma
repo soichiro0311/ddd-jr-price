@@ -29,6 +29,10 @@ model BasicFare {
   reservation   Reservation @relation(fields: [reservationId], references: [id])
   reservationId String @db.VarChar(255)
   price Int 
+  roundTripType Int 
+  adultChildType Int 
+  depatureDate String
+  destinationDate String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

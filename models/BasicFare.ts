@@ -2,8 +2,9 @@ import { Station } from "./Station";
 import { TravelSection } from './TravelSection';
 import { AdultChildCategory } from './AdultChildCategory';
 import { roundDown } from "./shared/PriceRounder";
-import { RoundTripType } from "./RoundTripType";
+import { RoundTripType } from './RoundTripType';
 import { v4 as uuidv4 } from '../node_modules/uuid/dist/cjs'
+import { format } from "date-fns";
 
 export class BasicFare {
     private _id: string
@@ -26,6 +27,21 @@ export class BasicFare {
         this._depatureDate = depatureDate
         this._destinationDate = destinationDate
     }
+
+    static fromData(dataObj: any, depatureStation: Station, destinationStation: Station, passengerCount: number): BasicFare {
+        const basicFare = new BasicFare(
+            new TravelSection(depatureStation, destinationStation),//
+            Number(dataObj.adultChildType), //
+            Number(dataObj.roundTripType), //
+            passengerCount, //
+            new Date(dataObj.depatureDate), //
+            new Date(dataObj.destinationDate)//
+        )
+        basicFare._id = dataObj.id
+        basicFare._value = dataObj.price
+        return basicFare
+    }
+
     id(): string {
         return this._id
     }
@@ -33,9 +49,17 @@ export class BasicFare {
     destinationDate(): Date {
         return this._destinationDate
     }
-    departureDate(): any {
+    departureDate(): Date {
         return this._depatureDate
     }
+    destinationDateStr(): string {
+        return format(this._destinationDate, "yyyy-MM-dd HH:mm");
+
+    }
+    departureDateStr(): string {
+        return format(this._depatureDate, "yyyy-MM-dd HH:mm");
+    }
+
 
     discount(discountRatio: number): void {
         this._value = roundDown(this._value * (1 - discountRatio))
@@ -49,6 +73,10 @@ export class BasicFare {
         return this._roundTripType === RoundTripType.RoundTrip
     }
 
+    roundTripType(): RoundTripType {
+        return this._roundTripType
+    }
+
     passengerCount(): number {
         return this._passengerCount
     }
@@ -59,6 +87,10 @@ export class BasicFare {
 
     travelSection(): TravelSection {
         return this._travelSection
+    }
+
+    adultChildCategory(): AdultChildCategory {
+        return this._adultChildCategory
     }
 
 

@@ -20,5 +20,17 @@ export class TicketReserveController {
             }
         }
     }
+
+    allReserveTickets = (request: any, response: any) => {
+        try {
+            this.ticketReserveService.allTickets().then(reservations => {
+                response.status(200).send(reservations)
+            })
+        } catch (e) {
+            if (e instanceof DomainError) {
+                response.status(400).send({ errorMessage: e.message })
+            }
+        }
+    }
 }
 

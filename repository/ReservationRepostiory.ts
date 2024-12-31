@@ -5,6 +5,7 @@ import { injectable } from "../node_modules/inversify/lib/cjs";
 
 @injectable()
 export class ReservationRepostiory implements ReservationRepositoryInterface {
+
     private prisma: PrismaClient;
 
     constructor() {
@@ -24,6 +25,10 @@ export class ReservationRepostiory implements ReservationRepositoryInterface {
                         return {
                             id: fare.id(),
                             price: fare.value(),
+                            roundTripType: fare.roundTripType(),
+                            adultChildType: fare.adultChildCategory(),
+                            depatureDate: fare.departureDateStr(),
+                            destinationDate: fare.destinationDateStr(),
                         }
                     })
                 }
@@ -33,4 +38,15 @@ export class ReservationRepostiory implements ReservationRepositoryInterface {
         return reservation;
     }
 
+    async list(): Promise<Reservation[]> {
+        return await this.prisma.reservation.findMany({
+            include: {
+                basicFares: true,
+            },
+        }).then(dataObj => {
+            return dataObj.map(data => {
+                return Reservation.fromData(data)
+            })
+        })
+    }
 }
