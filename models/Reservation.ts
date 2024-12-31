@@ -18,9 +18,10 @@ export class Reservation {
         this._passengerCount = adultPassengerCount + childPassengerCount;
         this._travelSection = new TravelSection(departureStation, destinationStation)
 
-        const groupDiscount = new GroupDiscount(this._passengerCount);
+        const groupDiscount = new GroupDiscount(this._passengerCount, roundTripType);
 
-        for (let i = 0; i < adultPassengerCount; i++) {
+        const adultTickets = roundTripType === RoundTripType.RoundTrip ? adultPassengerCount * 2 : adultPassengerCount;
+        for (let i = 0; i < adultTickets; i++) {
             const fare = new BasicFare(departureStation, destinationStation, AdultChildCategory.Adult, roundTripType, this._passengerCount, depatureDate, destinationDate)
             const roundTripDiscount = new RoundTripDiscount(fare.travelSection());
             if (roundTripDiscount.isApplyable(fare)) {
@@ -31,7 +32,9 @@ export class Reservation {
             }
             this._fares.push(fare)
         }
-        for (let i = 0; i < childPassengerCount; i++) {
+
+        const childTickets = roundTripType === RoundTripType.RoundTrip ? childPassengerCount * 2 : childPassengerCount;
+        for (let i = 0; i < childTickets; i++) {
             const fare = new BasicFare(departureStation, destinationStation, AdultChildCategory.Child, roundTripType, this._passengerCount, depatureDate, destinationDate)
             const roundTripDiscount = new RoundTripDiscount(fare.travelSection());
             if (roundTripDiscount.isApplyable(fare)) {

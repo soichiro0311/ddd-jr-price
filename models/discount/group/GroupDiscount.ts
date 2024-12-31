@@ -1,19 +1,19 @@
 import { IDiscount } from "../IDiscount";
-import { TravelPeriod, TravelDate } from "../../TravelPeriod";
 import { BasicFare } from "../../BasicFare";
 import { FreeDiscountStrategy } from "./FreeDiscountStrategy";
 import { IGroupDiscountStrategy } from "./GroupDiscountStrategyInterface";
 import { FreePerPassengerCountDiscountStrategy } from "./FreePerPassengerCountDiscountStrategy";
 import { RatioDiscountStrategy } from "./RatioDiscountStrategy";
 import { DomainError } from "../../error/DomainError";
+import { RoundTripType } from "../../RoundTripType";
 
 export class GroupDiscount implements IDiscount {
     private _applyPassengersCountThreshold = 8
 
     private _strategies: Array<IGroupDiscountStrategy> = []
 
-    constructor(passengerCount: number) {
-        this._strategies = [new FreeDiscountStrategy(), new FreePerPassengerCountDiscountStrategy(passengerCount), new RatioDiscountStrategy()]
+    constructor(passengerCount: number, roundTripType: RoundTripType) {
+        this._strategies = [new FreeDiscountStrategy(roundTripType), new FreePerPassengerCountDiscountStrategy(passengerCount, roundTripType), new RatioDiscountStrategy()]
     }
 
     apply(fare: BasicFare): void {

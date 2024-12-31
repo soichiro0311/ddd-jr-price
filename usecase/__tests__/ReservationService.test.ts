@@ -1,7 +1,6 @@
 import { TicketReserveService } from "../TicketReserveService";
 import { RoundTripType } from "../../models/RoundTripType";
 import { Station } from "../../models/Station";
-import { AdultChildCategory } from '../../models/AdultChildCategory';
 import { ReservationRepositoryMock } from '../../repository/mock/ReservationRepositoryMock';
 
 describe("チケット予約", () => {
@@ -10,18 +9,23 @@ describe("チケット予約", () => {
         const reserve = await service.reserve(RoundTripType.OneWay, Station.Tokyo, Station.SinOsaka, 8, 0, new Date("2024-3-13"), new Date("2024-3-15"))
         expect(reserve.sumPrice()).toBe(60560)
     })
+    it("8人分の東京から新大阪の往復運賃を算出できること", async () => {
+        const service = new TicketReserveService(new ReservationRepositoryMock());
+        const reserve = await service.reserve(RoundTripType.RoundTrip, Station.Tokyo, Station.SinOsaka, 8, 0, new Date("2024-3-13"), new Date("2024-3-15"))
+        expect(reserve.sumPrice()).toBe(121120)
+    })
     describe("割引適用", () => {
         describe("往復割引", () => {
             describe("往復の距離に応じて割引が適用されること", () => {
                 it("東京から姫路の往復運賃の場合、往復割引が適用されること", async () => {
                     const service = new TicketReserveService(new ReservationRepositoryMock());
                     const reserve = await service.reserve(RoundTripType.RoundTrip, Station.Tokyo, Station.Himeji, 7, 0, new Date("2024-3-13"), new Date("2024-3-15"))
-                    expect(reserve.sumPrice()).toBe(63000)
+                    expect(reserve.sumPrice()).toBe(126000)
                 })
                 it("東京から新大阪の往復運賃の場合、往復割引が適用されないこと", async () => {
                     const service = new TicketReserveService(new ReservationRepositoryMock());
                     const reserve = await service.reserve(RoundTripType.RoundTrip, Station.Tokyo, Station.SinOsaka, 7, 0, new Date("2024-3-13"), new Date("2024-3-15"))
-                    expect(reserve.sumPrice()).toBe(62370)
+                    expect(reserve.sumPrice()).toBe(124740)
                 })
             })
             describe("往復予約の場合のみ割引が適用されること", () => {
@@ -69,7 +73,7 @@ describe("チケット予約", () => {
             it("51人予約 かつ 往復で姫路まで かつ 25人が子供の料金の場合", async () => {
                 const service = new TicketReserveService(new ReservationRepositoryMock());
                 const reserve = await service.reserve(RoundTripType.RoundTrip, Station.Tokyo, Station.Himeji, 26, 25, new Date("2024-12-10"), new Date("2024-12-20"))
-                expect(reserve.sumPrice()).toBe(337500)
+                expect(reserve.sumPrice()).toBe(675000)
             })
         })
     })

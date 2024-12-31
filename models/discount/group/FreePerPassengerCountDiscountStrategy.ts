@@ -1,5 +1,6 @@
 import { BasicFare } from "../../BasicFare";
 import { IGroupDiscountStrategy } from "./GroupDiscountStrategyInterface";
+import { RoundTripType } from "../../RoundTripType";
 
 /**
  * 50人につき一人分を無料にする団多割引ルール
@@ -9,8 +10,8 @@ export class FreePerPassengerCountDiscountStrategy implements IGroupDiscountStra
     private discountSlotPassengerCount: number = 50
     private freeDiscountsPerPassengerCount: number = 0
 
-    constructor(passengerCount: number) {
-        this.freeDiscountsPerPassengerCount = Math.floor(passengerCount / this.discountSlotPassengerCount)
+    constructor(passengerCount: number, roundTripType: RoundTripType) {
+        this.freeDiscountsPerPassengerCount = roundTripType === RoundTripType.OneWay ? Math.floor(passengerCount / this.discountSlotPassengerCount) : Math.floor(passengerCount / this.discountSlotPassengerCount) * 2
     }
 
     discount(fare: BasicFare): void {
