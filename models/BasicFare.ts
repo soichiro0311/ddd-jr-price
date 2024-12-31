@@ -15,9 +15,9 @@ export class BasicFare {
     private _depatureDate: Date
     private _destinationDate: Date
 
-    constructor(departureStation: Station, destinationStation: Station, adultChildCategory: AdultChildCategory, roundTripType: RoundTripType, passengerCount: number, depatureDate: Date, destinationDate: Date) {
+    constructor(travelSection: TravelSection, adultChildCategory: AdultChildCategory, roundTripType: RoundTripType, passengerCount: number, depatureDate: Date, destinationDate: Date) {
         this._id = uuidv4()
-        this._travelSection = new TravelSection(departureStation, destinationStation)
+        this._travelSection = travelSection
         this._adultChildCategory = adultChildCategory;
         const value = this.resolveAdultChildCategoryValue(this.resolveDestinationValue())
         this._value = roundDown(value)

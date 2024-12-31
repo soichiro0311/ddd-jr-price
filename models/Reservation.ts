@@ -1,5 +1,5 @@
 import { Station } from "./Station";
-import { TravelSection } from "./TravelSection";
+import { TravelSection } from './TravelSection';
 import { BasicFare } from './BasicFare';
 import { AdultChildCategory } from './AdultChildCategory';
 import { RoundTripType } from './RoundTripType';
@@ -20,8 +20,8 @@ export class Reservation {
         this._travelSection = new TravelSection(departureStation, destinationStation)
         const discountChain = new RoundTripDiscount(this._travelSection).setNextDiscount(new GroupDiscount(this._passengerCount, roundTripType))
 
-        this.calcBasicFare(discountChain, depatureDate, destinationDate, departureStation, destinationStation, roundTripType, AdultChildCategory.Adult, adultPassengerCount)
-        this.calcBasicFare(discountChain, depatureDate, destinationDate, departureStation, destinationStation, roundTripType, AdultChildCategory.Child, childPassengerCount)
+        this.calcBasicFare(discountChain, depatureDate, destinationDate, this._travelSection, roundTripType, AdultChildCategory.Adult, adultPassengerCount)
+        this.calcBasicFare(discountChain, depatureDate, destinationDate, this._travelSection, roundTripType, AdultChildCategory.Child, childPassengerCount)
     }
 
     sumPrice() {
@@ -49,10 +49,10 @@ export class Reservation {
         return this._travelSection.departureStation().toString()
     }
 
-    private calcBasicFare(discountChain: DiscountBase, depatureDate: Date, destinationDate: Date, departureStation: Station, destinationStation: Station, roundTripType: RoundTripType, adultChildCategory: AdultChildCategory, passngerCount: number) {
+    private calcBasicFare(discountChain: DiscountBase, depatureDate: Date, destinationDate: Date, travelSection: TravelSection, roundTripType: RoundTripType, adultChildCategory: AdultChildCategory, passngerCount: number) {
         const tickets = roundTripType === RoundTripType.RoundTrip ? passngerCount * 2 : passngerCount;
         for (let i = 0; i < tickets; i++) {
-            const fare = new BasicFare(departureStation, destinationStation, adultChildCategory, roundTripType, this._passengerCount, depatureDate, destinationDate)
+            const fare = new BasicFare(travelSection, adultChildCategory, roundTripType, this._passengerCount, depatureDate, destinationDate)
             discountChain.discount(fare)
             this._fares.push(fare)
         }
