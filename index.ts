@@ -1,6 +1,6 @@
 import express from "express";
 import { myContainer } from "./inversifyConfig";
-import { TicketReserveController } from "./controller/TicketReserveController";
+import { TicketReserveController } from "./presentation/TicketReserveController";
 import { TYPES } from "./types";
 
 export const server = express();

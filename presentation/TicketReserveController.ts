@@ -1,7 +1,7 @@
 import { TicketReserveService } from '../usecase/TicketReserveService';
-import { DomainError } from '../models/error/DomainError';
+import { DomainError } from '../domain/error/DomainError';
 import { myContainer } from '../inversifyConfig';
-import { ReservationRepositoryInterface } from '../models/IReservationRepository';
+import { ReservationRepositoryInterface } from '../domain/IReservationRepository';
 import { TYPES } from '../types';
 
 export class TicketReserveController {

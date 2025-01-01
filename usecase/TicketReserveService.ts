@@ -1,7 +1,7 @@
-import { RoundTripType } from '../models/RoundTripType';
-import { Station } from '../models/Station';
-import { Reservation } from '../models/Reservation';
-import { ReservationRepositoryInterface } from "../models/IReservationRepository";
+import { RoundTripType } from '../domain/RoundTripType';
+import { Station } from '../domain/Station';
+import { Reservation } from '../domain/Reservation';
+import { ReservationRepositoryInterface } from "../domain/IReservationRepository";
 import { TYPES } from '../types';
 import { inject } from '../node_modules/inversify/lib/cjs';
 

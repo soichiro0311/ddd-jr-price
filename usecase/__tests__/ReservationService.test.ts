@@ -1,7 +1,7 @@
 import { TicketReserveService } from "../TicketReserveService";
-import { RoundTripType } from "../../models/RoundTripType";
-import { Station } from "../../models/Station";
-import { ReservationRepositoryMock } from '../../repository/mock/ReservationRepositoryMock';
+import { RoundTripType } from "../../domain/RoundTripType";
+import { Station } from "../../domain/Station";
+import { ReservationRepositoryMock } from '../../infrastracture/mock/ReservationRepositoryMock';
 
 describe("チケット予約", () => {
     it("8人分の東京から新大阪の片道運賃を算出できること", async () => {

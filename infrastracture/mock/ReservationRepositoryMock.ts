@@ -1,5 +1,5 @@
-import { ReservationRepositoryInterface } from "../../models/IReservationRepository";
-import { Reservation } from "../../models/Reservation";
+import { ReservationRepositoryInterface } from "../../domain/IReservationRepository";
+import { Reservation } from "../../domain/Reservation";
 import { injectable } from "../../node_modules/inversify/lib/cjs";
 
 @injectable()
